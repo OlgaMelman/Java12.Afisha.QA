@@ -1,10 +1,5 @@
 package ru.netology.qa;
 
-import lombok.*;
-
-@AllArgsConstructor
-@Getter
-@Setter
 public class FilmManager {
 
 

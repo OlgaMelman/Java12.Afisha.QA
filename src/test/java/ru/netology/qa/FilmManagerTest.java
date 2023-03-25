@@ -4,9 +4,30 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class FilmManagerTest {
+    FilmManager manager = new FilmManager();
+
+    @Test
+    public void shouldShowEmpty() {
+
+        Film[] expected = new Film[0];
+        Film[] actual = manager.findAll();
+
+        Assertions.assertArrayEquals(expected,actual);
+    }
+
+    @Test
+    public void shouldAddOneFilms() {
+        Film film1 = new Film("Титаник", 1);
+
+        manager.add(film1);
+
+        Film[] expected = {film1};
+        Film[] actual = manager.findAll();
+
+        Assertions.assertArrayEquals(expected,actual);
+    }
     @Test
     public void shouldAddThreeFilms() {
-        FilmManager manager = new FilmManager();
         Film film1 = new Film("Титаник", 1);
         Film film2 = new Film("Аватар", 2);
         Film film3 = new Film("Дом у озера", 3);
@@ -21,22 +42,9 @@ public class FilmManagerTest {
         Assertions.assertArrayEquals(expected,actual);
     }
 
-    @Test
-    public void shouldAddOneFilms() {
-        FilmManager manager = new FilmManager();
-        Film film1 = new Film("Титаник", 1);
-
-        manager.add(film1);
-
-        Film[] expected = {film1};
-        Film[] actual = manager.findAll();
-
-        Assertions.assertArrayEquals(expected,actual);
-    }
 
     @Test
     public void shouldShowLastFilms() {
-        FilmManager manager = new FilmManager();
         Film film1 = new Film("Титаник", 1);
         Film film2 = new Film("Аватар", 2);
         Film film3 = new Film("Дом у озера", 3);
