@@ -35,7 +35,6 @@ public class FilmManagerBorderTest {
 
         manager.add(film10);
 
-
         Film[] expected = {film10, film9, film8, film7, film6, film5, film4, film3, film2, film1};
         Film[] actual = manager.findLast();
 
@@ -58,7 +57,6 @@ public class FilmManagerBorderTest {
 
     @Test
     public void shouldShowLast9Films() {
-
         Film[] expected = {film9, film8, film7, film6, film5, film4, film3, film2, film1};
         Film[] actual = manager.findLast();
 

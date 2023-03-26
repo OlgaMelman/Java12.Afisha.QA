@@ -79,10 +79,8 @@ public class FilmManagerTest {
         Film film1 = new Film("Титаник", 1);
         Film film2 = new Film("Аватар", 2);
 
-
         manager.add(film1);
         manager.add(film2);
-
 
         Film[] expected = {film2, film1};
         Film[] actual = manager.findLast();
@@ -117,6 +115,20 @@ public class FilmManagerTest {
         manager.add(film1);
         manager.add(film2);
 
+        Film[] expected = new Film[0];
+        Film[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldShowLastFilmsUnderLimit0() {
+        FilmManager manager = new FilmManager(-1);
+        Film film1 = new Film("Титаник", 1);
+        Film film2 = new Film("Аватар", 2);
+
+        manager.add(film1);
+        manager.add(film2);
 
         Film[] expected = new Film[0];
         Film[] actual = manager.findLast();

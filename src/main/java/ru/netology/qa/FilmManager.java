@@ -7,7 +7,11 @@ public class FilmManager {
     private int limit;
 
     public FilmManager(int limit) {
-        this.limit = limit;
+        if (limit >= 0) {
+            this.limit = limit;
+        } else {
+            return;
+        }
     }
 
     public FilmManager() {
