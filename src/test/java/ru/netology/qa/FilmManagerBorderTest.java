@@ -5,7 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class FilmManagerBorderTest {
-    FilmManager manager = new FilmManager();
+    FilmRepository repo = new FilmRepository();
+    FilmManager manager = new FilmManager(repo);
     Film film1 = new Film("Титаник", 1);
     Film film2 = new Film("Аватар", 2);
     Film film3 = new Film("Дом у озера", 3);
@@ -62,5 +63,4 @@ public class FilmManagerBorderTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
-
 }

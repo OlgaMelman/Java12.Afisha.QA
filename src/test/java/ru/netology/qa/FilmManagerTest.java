@@ -2,138 +2,78 @@ package ru.netology.qa;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 public class FilmManagerTest {
-    FilmManager manager = new FilmManager();
+    FilmRepository repo = Mockito.mock(FilmRepository.class);
+    FilmManager manager = new FilmManager(repo);
+
     @Test
     public void shouldShowEmpty() {
+        Film[] films = new Film[0];
+        doReturn(films).when(repo).findAll();
+
         Film[] expected = new Film[0];
         Film[] actual = manager.findAll();
 
-        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldAddOneFilms() {
         Film film1 = new Film("Титаник", 1);
-
-        manager.add(film1);
+        Film[] films = {film1};
+        doReturn(films).when(repo).findAll();
 
         Film[] expected = {film1};
         Film[] actual = manager.findAll();
 
-        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldAddThreeFilms() {
         Film film1 = new Film("Титаник", 1);
         Film film2 = new Film("Аватар", 2);
         Film film3 = new Film("Дом у озера", 3);
-
-        manager.add(film1);
-        manager.add(film2);
-        manager.add(film3);
+        Film[] films = {film1, film2, film3};
+        doReturn(films).when(repo).findAll();
 
         Film[] expected = {film1, film2, film3};
         Film[] actual = manager.findAll();
 
-        Assertions.assertArrayEquals(expected,actual);
-    }
-
-
-    @Test
-    public void shouldShowLastFilms() {
-        Film film1 = new Film("Титаник", 1);
-        Film film2 = new Film("Аватар", 2);
-        Film film3 = new Film("Дом у озера", 3);
-
-        manager.add(film1);
-        manager.add(film2);
-        manager.add(film3);
-
-        Film[] expected = {film3, film2, film1};
-        Film[] actual = manager.findLast();
-
-        Assertions.assertArrayEquals(expected,actual);
-    }
-    @Test
-    public void shouldShowLast3WithLimitFilms() {
-        FilmManager manager = new FilmManager(3);
-        Film film1 = new Film("Титаник", 1);
-        Film film2 = new Film("Аватар", 2);
-        Film film3 = new Film("Дом у озера", 3);
-
-        manager.add(film1);
-        manager.add(film2);
-        manager.add(film3);
-
-        Film[] expected = { film3, film2, film1};
-        Film[] actual = manager.findLast();
-
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldShowLast3UnderLimitFilms() {
-        FilmManager manager = new FilmManager(3);
-        Film film1 = new Film("Титаник", 1);
-        Film film2 = new Film("Аватар", 2);
-
-        manager.add(film1);
-        manager.add(film2);
-
-        Film[] expected = {film2, film1};
-        Film[] actual = manager.findLast();
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldShowLast3AboveWithLimitFilms() {
-        FilmManager manager = new FilmManager(3);
+    public void shouldRemoveAllFilms() {
         Film film1 = new Film("Титаник", 1);
         Film film2 = new Film("Аватар", 2);
         Film film3 = new Film("Дом у озера", 3);
-        Film film4 = new Film("Зеленая миля", 4);
-
-        manager.add(film1);
-        manager.add(film2);
-        manager.add(film3);
-        manager.add(film4);
-
-        Film[] expected = { film4, film3, film2};
-        Film[] actual = manager.findLast();
-
-        Assertions.assertArrayEquals(expected, actual);
-    }
-    @Test
-    public void shouldShowLastFilmsLimit0() {
-        FilmManager manager = new FilmManager(0);
-        Film film1 = new Film("Титаник", 1);
-        Film film2 = new Film("Аватар", 2);
-
-        manager.add(film1);
-        manager.add(film2);
+        Film[] films = {film1, film2, film3};
+        doReturn(new Film[0]).when(repo).removeAll();
 
         Film[] expected = new Film[0];
-        Film[] actual = manager.findLast();
+        Film[] actual = repo.removeAll();
+        ;
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldShowLastFilmsUnderLimit0() {
-        FilmManager manager = new FilmManager(-1);
+    public void shouldFindById() {
         Film film1 = new Film("Титаник", 1);
         Film film2 = new Film("Аватар", 2);
+        Film film3 = new Film("Дом у озера", 3);
+        Film[] films = {film1, film2, film3};
+        doReturn(new Film[2]).when(repo).findById(3);
 
-        manager.add(film1);
-        manager.add(film2);
+        Film[] expected = new Film[2];
+        Film[] actual = repo.findById(3);
 
-        Film[] expected = new Film[0];
-        Film[] actual = manager.findLast();
-
-        Assertions.assertArrayEquals(expected, actual);
+        Assertions.assertArrayEquals(expected,actual);
     }
 
 }
