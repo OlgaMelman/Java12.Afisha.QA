@@ -18,5 +18,20 @@ public class FilmManager {
         return all;
     }
 
+    public Film[] findLast() {
+        int resultLength;
+        if (repo.findAll().length < repo.getLimit()) {
+            resultLength = repo.findAll().length;
+        } else {
+            resultLength = repo.getLimit();
+        }
+        Film[] result = new Film[resultLength];
+        for (int i = 0; i < resultLength; i++) {
+            result[i] = repo.findAll()[repo.findAll().length - 1 - i];
+
+        }
+        return result;
+    }
+
 
 }

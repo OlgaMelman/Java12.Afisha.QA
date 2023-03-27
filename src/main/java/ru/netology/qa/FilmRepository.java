@@ -1,7 +1,23 @@
 package ru.netology.qa;
 
+import lombok.Getter;
+
+@Getter
 public class FilmRepository {
     private Film[] films = new Film[0];
+    private int limit;
+
+    public FilmRepository(int limit) {
+        if (limit >= 0) {
+            this.limit = limit;
+        } else {
+            return;
+        }
+    }
+
+    public FilmRepository() {
+        this.limit = 10;
+    }
 
     public void save(Film film) {
         Film[] tmp = new Film[films.length + 1];
